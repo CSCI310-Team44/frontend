@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Project2bookingsample</string>
+    <string name="default_timeslot_text">00:00\n\nLeft:\n0</string>
+</resources>
