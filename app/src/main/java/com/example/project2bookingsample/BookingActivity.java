@@ -7,7 +7,7 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.project2bookingsample.databinding.ActivityMainBinding;
+import com.example.project2bookingsample.databinding.ActivityBookingBinding;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,9 +20,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class BookingActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private ActivityBookingBinding binding;
 
     /**
      * The recreation center that the user is currently searching.
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
 
         // Enables binding
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityBookingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         /*
