@@ -1,5 +1,6 @@
 package com.example.project2bookingsample.ui.login;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 
 import androidx.lifecycle.Observer;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,11 +26,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project2bookingsample.HTTPRequestSyncRest;
 import com.example.project2bookingsample.HomeActivity;
 import com.example.project2bookingsample.R;
+import com.example.project2bookingsample.data.Result;
+import com.example.project2bookingsample.data.model.LoggedInUser;
 import com.example.project2bookingsample.ui.login.LoginViewModel;
 import com.example.project2bookingsample.ui.login.LoginViewModelFactory;
 import com.example.project2bookingsample.databinding.ActivityLoginBinding;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -83,7 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                finish();
+                // NOTE: do not do this, since we want to stay at the login page
+//                finish();
             }
         });
 
@@ -129,17 +138,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        String welcome = getString(R.string.welcome);
 
         // once log-in successful, jump to home page.
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
         Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("username", binding.username.getText().toString());
-//        System.out.println(binding.username.getText());
+        intent.putExtra("userid", binding.username.getText().toString());
+//        Log.d("DEBUGDISPLAY", binding.username.getText().toString());
         startActivity(intent);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+        binding.password.setText("");
     }
 }

@@ -1,5 +1,6 @@
 package com.example.project2bookingsample;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,12 +8,17 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.project2bookingsample.databinding.ActivityHomeBinding;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -26,9 +32,26 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        TextView fullNameTextView = (TextView) findViewById(R.id.backAndName);
-        String fullName = getIntent().getStringExtra("username");
-        fullNameTextView.setText("Back, "+fullName);
+
+//        TextView fullNameTextView = (TextView) findViewById(R.id.backAndName);
+//        fullNameTextView.setText("Back, "+userFullName);
+//
+//        try {
+//            String vacancyFmt = "http://10.0.2.2:8080/api/booking/vacancy?center=%d&date=%s";
+//            URL vacancyURL =
+//                    new URL(String.format(vacancyFmt, currentRecCenter.value, getDateString()));
+//
+//            HTTPRequestSyncRest httpRequest = new HTTPRequestSyncRest();
+//            httpRequest.setUrl(vacancyURL);
+//            httpRequest.setRequestMethod("GET");
+//            httpRequest.sendAndAwaitResponse();
+//
+//            message = httpRequest.getResponseContent();
+//        }
+//        catch (IOException ioe) {
+//            ioe.printStackTrace();
+//            return;
+//        }
 //
 //        setSupportActionBar(binding.toolbar);
 
@@ -46,6 +69,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public void OnClickViewProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
+        // pass along the userid
+        intent.putExtra("userid", getIntent().getStringExtra("userid"));
         startActivity(intent);
     }
 
