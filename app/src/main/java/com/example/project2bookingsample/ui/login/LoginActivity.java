@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project2bookingsample.HomeActivity;
 import com.example.project2bookingsample.R;
 import com.example.project2bookingsample.ui.login.LoginViewModel;
 import com.example.project2bookingsample.ui.login.LoginViewModelFactory;
@@ -74,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     showLoginFailed(loginResult.getError());
                 }
                 if (loginResult.getSuccess() != null) {
+                    // updateUiWithUser only when it's successful
                     updateUiWithUser(loginResult.getSuccess());
                 }
                 setResult(Activity.RESULT_OK);
@@ -126,8 +130,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
+
+        // once log-in successful, jump to home page.
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("username", binding.username.getText().toString());
+//        System.out.println(binding.username.getText());
+        startActivity(intent);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

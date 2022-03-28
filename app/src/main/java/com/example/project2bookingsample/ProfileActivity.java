@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.project2bookingsample.data.model.LoggedInUser;
+
 public class ProfileActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
         String netID = "9953222222";
         Integer pastAppointments = 23;
 
+
         TextView fullNameTextView = (TextView) findViewById(R.id.fullName);
         fullNameTextView.setText("Name: "+firstName+" "+lastName);
 
@@ -31,9 +34,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
     public void OnClickBackToHome(View view){
-        Intent intent = new Intent(this, BookingActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         // always passing the username as a means of user authentication
-        intent.putExtra("netID", "9966389234");
+        intent.putExtra("username", "Lala");
         startActivity(intent);
     }
 }

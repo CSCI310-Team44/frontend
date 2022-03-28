@@ -21,4 +21,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="usc_net_id">USC Net ID</string>
     <string name="password">Password</string>
+    <string name="you_can_choose_to">You can choose to</string>
+    <string name="back">Back!</string>
+    <string name="view_profile">View Profile</string>
 </resources>
