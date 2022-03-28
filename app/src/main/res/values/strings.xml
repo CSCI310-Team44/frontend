@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">USC Rec App</string>
     <string name="default_timeslot_text">00:00\n\nLeft:\n0</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="title_activity_login">USC Rec App -- Login</string>
+    <string name="prompt_email">1111122222</string>
+    <string name="prompt_password">abcd1234</string>
+    <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_username">Not a valid USC Net ID</string>
+    <string name="invalid_password">Please enter a valid password</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_home">HomeActivity</string>
     <!-- Strings used for fragments for navigation -->
@@ -19,4 +19,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="usc_net_id">USC Net ID</string>
+    <string name="password">Password</string>
 </resources>

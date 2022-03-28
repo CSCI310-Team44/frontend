@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Patterns;
-
 import com.example.project2bookingsample.data.LoginRepository;
 import com.example.project2bookingsample.data.Result;
 import com.example.project2bookingsample.data.model.LoggedInUser;
 import com.example.project2bookingsample.R;
+
+import java.util.regex.Pattern;
 
 public class LoginViewModel extends ViewModel {
 
@@ -51,20 +51,16 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    // A placeholder username validation check
+    // the username will always be a valid USC NetID, which is 10-digit pure number
     private boolean isUserNameValid(String username) {
         if (username == null) {
             return false;
         }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-        } else {
-            return !username.trim().isEmpty();
-        }
+        return Pattern.matches("^\\d{10}$", username);
     }
 
-    // A placeholder password validation check
+    // we are not doing any password check, as none is specified in the requirements.
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
+        return true;
     }
 }
