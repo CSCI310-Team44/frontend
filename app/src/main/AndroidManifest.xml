@@ -47,6 +47,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.project2bookingsample.FutureBooking"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.example.project2bookingsample.PreviousBooking"
+            android:exported="false" />
+        <activity
             android:name=".BookingActivity"
             android:exported="false" />
     </application>

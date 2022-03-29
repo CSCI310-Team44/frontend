@@ -28,7 +28,7 @@ public class BookingActivity extends AppCompatActivity {
      * The recreation center that the user is currently searching.
      * Passed down by previous UI activity.
      */
-    RecCenter currentRecCenter = RecCenter.LYON_CENTER;
+    private RecCenter currentRecCenter = RecCenter.LYON_CENTER;
 
     public enum RecCenter {
         LYON_CENTER(0, "LYON CENTER"),
@@ -75,6 +75,13 @@ public class BookingActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        if(getIntent().getIntExtra("centerid", 0) == 0){
+            currentRecCenter = RecCenter.LYON_CENTER;
+        } else if(getIntent().getIntExtra("centerid", 0) == 1){
+            currentRecCenter = RecCenter.VILLAGE_CENTER;
+        } else if(getIntent().getIntExtra("centerid", 0) == 2){
+            currentRecCenter = RecCenter.HSC_CENTER;
+        }
         setTitle(currentRecCenter.name);
 
         binding.date.setText(getDateString());

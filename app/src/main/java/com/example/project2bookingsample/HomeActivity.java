@@ -38,6 +38,14 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityHomeBinding binding;
     private GoogleMap mMap;
     private TextView mSelectedCenter;
+    private int mCenterID;
+
+    public void OnClickShowSummary(View view) {
+        Intent intent = new Intent(this, FutureBooking.class);
+        // pass along the userid
+        intent.putExtra("userid", getIntent().getStringExtra("userid"));
+        startActivity(intent);
+    }
 
     public enum RecCenter {
         LYON_CENTER(0, "LYON CENTER",34.02458465159024, -118.2883445513555),
@@ -119,6 +127,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = new Intent(this, BookingActivity.class);
         // pass along the userid
         intent.putExtra("userid", getIntent().getStringExtra("userid"));
+        intent.putExtra("centerid", mCenterID);
         startActivity(intent);
     }
 
@@ -141,15 +150,16 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                     marker.showInfoWindow();
                 }
                 mSelectedCenter.setText(marker.getTitle());
+                if(marker.getTitle().equals("UCS Lyon Center")){
+                    mCenterID = 0;
+                } else if(marker.getTitle().equals("Village Fitness Center")){
+                    mCenterID = 1;
+                } else if(marker.getTitle().equals("HSC Center")){
+                    mCenterID = 2;
+                }
                 return true;
             }
         });
     }
 
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
-//        return NavigationUI.navigateUp(navController, appBarConfiguration)
-//                || super.onSupportNavigateUp();
-//    }
 }
