@@ -100,6 +100,7 @@ public class BookingActivity extends AppCompatActivity {
                     );
                 }
         );
+        notifier.start();
 
         binding.date.setText(getDateString());
 

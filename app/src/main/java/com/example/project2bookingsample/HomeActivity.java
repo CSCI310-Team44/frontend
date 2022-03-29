@@ -81,9 +81,9 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                     );
                 }
         );
+        notifier.start();
     }
 
-    ;
 
     public void OnClickViewProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);

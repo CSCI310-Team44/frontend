@@ -55,12 +55,13 @@ public class ProfileActivity extends AppCompatActivity {
                     );
                 }
         );
+        notifier.start();
 
         try {
             String nameFmt = "http://10.0.2.2:8080/api/user/name?userid=%d";
             // giving the username as an integer (long) as the API requires
             @SuppressLint("DefaultLocale") URL nameURL =
-                    new URL(String.format(nameFmt, Integer.parseInt(getIntent().getStringExtra("userid"))));
+                    new URL(String.format(nameFmt, Integer.parseInt(FakeSingleton.getUserid())));
 
             HTTPRequestSyncRest httpRequest = new HTTPRequestSyncRest();
             httpRequest.setUrl(nameURL);
@@ -82,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
         fullNameTextView.setText("Name: " + userFullName);
 
         TextView netIDView = (TextView) findViewById(R.id.netID);
-        netIDView.setText("NetID: " + getIntent().getStringExtra("userid"));
+        netIDView.setText("NetID: " + userId);
 
     }
 
