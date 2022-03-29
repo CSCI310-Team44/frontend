@@ -4,8 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.StrictMode;
@@ -13,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.project2bookingsample.databinding.ActivityHomeBinding;
@@ -20,10 +30,34 @@ import com.example.project2bookingsample.databinding.ActivityHomeBinding;
 import java.io.IOException;
 import java.net.URL;
 
-public class HomeActivity extends AppCompatActivity {
+//public class HomeActivity extends AppCompatActivity {
+
+public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityHomeBinding binding;
+    private GoogleMap mMap;
+    private TextView mSelectedCenter;
+
+    public enum RecCenter {
+        LYON_CENTER(0, "LYON CENTER",34.02458465159024, -118.2883445513555),
+        VILLAGE_CENTER(1, "VILLAGE CENTER",34.0250306490167, -118.28560868454927),
+        HSC_CENTER(2, "HSC CENTER",34.06589845255248, -118.19668270228046);
+
+        public final int value;
+        public final String name;
+        public final double lat;
+        public final double longitude;
+        public final LatLng latLng;
+
+        RecCenter(int value, String name, double lat, double longitude) {
+            this.value = value;
+            this.name = name;
+            this.lat = lat;
+            this.longitude = longitude;
+            this.latLng = new LatLng(lat, longitude);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +65,13 @@ public class HomeActivity extends AppCompatActivity {
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        TextView selectedCenter = (TextView) findViewById(R.id.selectedCenter);
+        mSelectedCenter = selectedCenter;
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
 
 //        TextView fullNameTextView = (TextView) findViewById(R.id.backAndName);
@@ -72,6 +113,37 @@ public class HomeActivity extends AppCompatActivity {
         // pass along the userid
         intent.putExtra("userid", getIntent().getStringExtra("userid"));
         startActivity(intent);
+    }
+
+    public void OnClickMakeBooking(View view) {
+        Intent intent = new Intent(this, BookingActivity.class);
+        // pass along the userid
+        intent.putExtra("userid", getIntent().getStringExtra("userid"));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        //TODO: HomeActivity or MapsFragment
+        googleMap.addMarker(new MarkerOptions().position(HomeActivity.RecCenter.LYON_CENTER.latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("UCS Lyon Center").snippet("Hours: M-F 10AM - 4PM"));
+        googleMap.addMarker(new MarkerOptions().position(HomeActivity.RecCenter.VILLAGE_CENTER.latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("Village Fitness Center").snippet("Hours: M-F 10AM - 4PM"));
+        googleMap.addMarker(new MarkerOptions().position(HomeActivity.RecCenter.HSC_CENTER.latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("HSC Center").snippet("Hours: M-F 10AM - 4PM"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HomeActivity.RecCenter.LYON_CENTER.latLng, 10));
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                if(marker.isInfoWindowShown()) {
+                    marker.hideInfoWindow();
+                } else {
+                    marker.showInfoWindow();
+                }
+                mSelectedCenter.setText(marker.getTitle());
+                return true;
+            }
+        });
     }
 
 //    @Override
