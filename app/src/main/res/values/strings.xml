@@ -24,4 +24,6 @@
     <string name="you_can_choose_to">You can choose to</string>
     <string name="back">Back!</string>
     <string name="view_profile">View Profile</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="or_make_a_booking_on_the_map">Or make a booking on the map</string>
 </resources>
