@@ -19,8 +19,12 @@ public class SSEPlainTextConsumer {
      */
     private int state = 0;
 
+    public SSEPlainTextConsumer(URL url) {
+        this.url = url;
+    }
+
     public void connect() {
-        if(state == 1) {
+        if (state == 1) {
             return;
         }
 
@@ -31,15 +35,14 @@ public class SSEPlainTextConsumer {
             // con.getInputStream blocks if no input is present
 
             state = 1;
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
             state = 9;
         }
     }
 
     public void disconnect() {
-        if(state != 1) {
+        if (state != 1) {
             return;
         }
         con.disconnect();
@@ -56,23 +59,18 @@ public class SSEPlainTextConsumer {
      * @return
      * @throws IOException
      */
-    public String getContent() throws IOException{
-        if(state == 1) {
+    public String getContent() throws IOException {
+        if (state == 1) {
             BufferedReader br =
                     new BufferedReader(new InputStreamReader(con.getInputStream()));
             String line = br.readLine();
-            if(line != null) {
+            if (line != null) {
                 return line;
-            }
-            else {
+            } else {
                 state = 2;
                 return "";
             }
         }
         throw new RuntimeException("Connection closed or failed.");
-    }
-
-    public SSEPlainTextConsumer(URL url) {
-        this.url = url;
     }
 }

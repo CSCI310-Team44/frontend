@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,7 +29,12 @@ public class PreviousBooking extends AppCompatActivity {
 
         String message;
         //todo 拿currentuserid
-        Long userId=(long)1000000002;
+        long userId = (long) 0;
+        try {
+            userId = (long) Integer.parseInt(FakeSingleton.getUserid());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
@@ -65,23 +71,21 @@ public class PreviousBooking extends AppCompatActivity {
             httpRequest.setRequestMethod("GET");
             httpRequest.sendAndAwaitResponse();
             message = httpRequest.getResponseContent();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
             return;
         }
 
         String[] csv;
-        if(message.equals("")) {
+        if (message.equals("")) {
             csv = new String[0];
-        }
-        else {
+        } else {
             csv = message.split(",");
         }
 
         ArrayList<previousBookingInfo> bookingLst = new ArrayList<>();
-        for (int i = 0; i < csv.length; i+=2) {
-            bookingLst.add(new previousBookingInfo(csv[i+1],csv[i]));
+        for (int i = 0; i < csv.length; i += 2) {
+            bookingLst.add(new previousBookingInfo(csv[i + 1], csv[i]));
         }
 
         ArrayAdapter<previousBookingInfo> arrayAdapter
@@ -97,13 +101,13 @@ public class PreviousBooking extends AppCompatActivity {
             finish();
         });
         //todo associate with frontend page
-//        btn2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(PreviousBooking.this, back.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PreviousBooking.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

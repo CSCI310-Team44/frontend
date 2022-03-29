@@ -1,9 +1,18 @@
 package com.example.project2bookingsample;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.ui.AppBarConfiguration;
+
+import com.example.project2bookingsample.databinding.ActivityHomeBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -12,23 +21,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.StrictMode;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
-import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.ui.AppBarConfiguration;
-
-import com.example.project2bookingsample.databinding.ActivityHomeBinding;
-
-import java.io.IOException;
-import java.net.URL;
 
 //public class HomeActivity extends AppCompatActivity {
 
@@ -39,6 +31,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private TextView mSelectedCenter;
     private int mCenterID;
+    private String userId;
 
     public void OnClickShowSummary(View view) {
         Intent intent = new Intent(this, FutureBooking.class);
@@ -46,26 +39,6 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         intent.putExtra("userid", getIntent().getStringExtra("userid"));
         startActivity(intent);
     }
-
-    public enum RecCenter {
-        LYON_CENTER(0, "LYON CENTER",34.02458465159024, -118.2883445513555),
-        VILLAGE_CENTER(1, "VILLAGE CENTER",34.0250306490167, -118.28560868454927),
-        HSC_CENTER(2, "HSC CENTER",34.06589845255248, -118.19668270228046);
-
-        public final int value;
-        public final String name;
-        public final double lat;
-        public final double longitude;
-        public final LatLng latLng;
-
-        RecCenter(int value, String name, double lat, double longitude) {
-            this.value = value;
-            this.name = name;
-            this.lat = lat;
-            this.longitude = longitude;
-            this.latLng = new LatLng(lat, longitude);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,41 +53,37 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-//        TextView fullNameTextView = (TextView) findViewById(R.id.backAndName);
-//        fullNameTextView.setText("Back, "+userFullName);
-//
-//        try {
-//            String vacancyFmt = "http://10.0.2.2:8080/api/booking/vacancy?center=%d&date=%s";
-//            URL vacancyURL =
-//                    new URL(String.format(vacancyFmt, currentRecCenter.value, getDateString()));
-//
-//            HTTPRequestSyncRest httpRequest = new HTTPRequestSyncRest();
-//            httpRequest.setUrl(vacancyURL);
-//            httpRequest.setRequestMethod("GET");
-//            httpRequest.sendAndAwaitResponse();
-//
-//            message = httpRequest.getResponseContent();
-//        }
-//        catch (IOException ioe) {
-//            ioe.printStackTrace();
-//            return;
-//        }
-//
-//        setSupportActionBar(binding.toolbar);
-
-//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-//        binding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        userId = FakeSingleton.getUserid();
+        long longId = (long) 0;
+        try {
+            longId = (long) Integer.parseInt(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        com.example.project2bookingsample.Notifier notifier = new com.example.project2bookingsample.Notifier(
+                longId,
+                0,
+                str -> {
+                    String[] info = str.replace("data:", "").replace("T", " ").split(",");
+                    if (Integer.parseInt(info[0]) == 0) {
+                        info[0] = "Lyon Center";
+                    } else if (Integer.parseInt(info[0]) == 1) {
+                        info[0] = "Village Center";
+                    } else {
+                        info[0] = "HSC Center";
+                    }
+                    new Handler(Looper.getMainLooper()).post(
+                            () -> new AlertDialog.Builder(HomeActivity.this)
+                                    .setTitle("New Space Available!")
+                                    .setMessage("There is a new spot released at " + info[0] + " with a starting time of " + info[1] + ". Move quick or it will be occupied!")
+                                    .setNegativeButton("Close", (dialog, which) -> {
+                                    }).show()
+                    );
+                }
+        );
     }
+
+    ;
 
     public void OnClickViewProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
@@ -144,22 +113,42 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
-                if(marker.isInfoWindowShown()) {
+                if (marker.isInfoWindowShown()) {
                     marker.hideInfoWindow();
                 } else {
                     marker.showInfoWindow();
                 }
                 mSelectedCenter.setText(marker.getTitle());
-                if(marker.getTitle().equals("UCS Lyon Center")){
+                if (marker.getTitle().equals("UCS Lyon Center")) {
                     mCenterID = 0;
-                } else if(marker.getTitle().equals("Village Fitness Center")){
+                } else if (marker.getTitle().equals("Village Fitness Center")) {
                     mCenterID = 1;
-                } else if(marker.getTitle().equals("HSC Center")){
+                } else if (marker.getTitle().equals("HSC Center")) {
                     mCenterID = 2;
                 }
                 return true;
             }
         });
+    }
+
+    public enum RecCenter {
+        LYON_CENTER(0, "LYON CENTER", 34.02458465159024, -118.2883445513555),
+        VILLAGE_CENTER(1, "VILLAGE CENTER", 34.0250306490167, -118.28560868454927),
+        HSC_CENTER(2, "HSC CENTER", 34.06589845255248, -118.19668270228046);
+
+        public final int value;
+        public final String name;
+        public final double lat;
+        public final double longitude;
+        public final LatLng latLng;
+
+        RecCenter(int value, String name, double lat, double longitude) {
+            this.value = value;
+            this.name = name;
+            this.lat = lat;
+            this.longitude = longitude;
+            this.latLng = new LatLng(lat, longitude);
+        }
     }
 
 }

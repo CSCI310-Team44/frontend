@@ -1,16 +1,17 @@
 package com.example.project2bookingsample;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.project2bookingsample.data.model.LoggedInUser;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.net.URL;
 
@@ -25,6 +26,36 @@ public class ProfileActivity extends AppCompatActivity {
         String userFullName = "User";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        String userId = FakeSingleton.getUserid();
+        long longId = (long) 0;
+        try {
+            longId = (long) Integer.parseInt(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        com.example.project2bookingsample.Notifier notifier = new com.example.project2bookingsample.Notifier(
+                longId,
+                0,
+                str -> {
+                    String[] info = str.replace("data:", "").replace("T", " ").split(",");
+                    if (Integer.parseInt(info[0]) == 0) {
+                        info[0] = "Lyon Center";
+                    } else if (Integer.parseInt(info[0]) == 1) {
+                        info[0] = "Village Center";
+                    } else {
+                        info[0] = "HSC Center";
+                    }
+                    new Handler(Looper.getMainLooper()).post(
+                            () -> new AlertDialog.Builder(ProfileActivity.this)
+                                    .setTitle("New Space Available!")
+                                    .setMessage("There is a new spot released at " + info[0] + " with a starting time of " + info[1] + ". Move quick or it will be occupied!")
+                                    .setNegativeButton("Close", (dialog, which) -> {
+                                    }).show()
+                    );
+                }
+        );
+
         try {
             String nameFmt = "http://10.0.2.2:8080/api/user/name?userid=%d";
             // giving the username as an integer (long) as the API requires
@@ -37,24 +68,25 @@ public class ProfileActivity extends AppCompatActivity {
             httpRequest.setRequestMethod("GET");
             httpRequest.sendAndAwaitResponse();
             String message = httpRequest.getResponseContent();
-            if(message.equals("User Not Found")){
+            if (message.equals("User Not Found")) {
                 throw new Exception("User Not Found");
-            }else{
+            } else {
                 userFullName = message;
             }
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         TextView fullNameTextView = (TextView) findViewById(R.id.fullName);
-        fullNameTextView.setText("Name: "+userFullName);
+        fullNameTextView.setText("Name: " + userFullName);
 
         TextView netIDView = (TextView) findViewById(R.id.netID);
-        netIDView.setText("NetID: "+getIntent().getStringExtra("userid"));
+        netIDView.setText("NetID: " + getIntent().getStringExtra("userid"));
 
     }
-    public void OnClickBackToHome(View view){
+
+    public void OnClickBackToHome(View view) {
         Intent intent = new Intent(this, HomeActivity.class);
         // always passing the username as a means of user authentication
         intent.putExtra("userid", getIntent().getStringExtra("userid"));

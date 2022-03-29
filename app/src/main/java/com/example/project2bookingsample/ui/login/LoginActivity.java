@@ -26,6 +26,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project2bookingsample.FakeSingleton;
 import com.example.project2bookingsample.HTTPRequestSyncRest;
 import com.example.project2bookingsample.HomeActivity;
 import com.example.project2bookingsample.R;
@@ -147,6 +148,8 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("userid", binding.username.getText().toString());
 //        Log.d("DEBUGDISPLAY", binding.username.getText().toString());
         startActivity(intent);
+
+        FakeSingleton.setUserid(binding.username.getText().toString());
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
