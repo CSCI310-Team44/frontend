@@ -41,12 +41,14 @@ public class BookingActivity extends AppCompatActivity {
     int offsetDate = 0;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    ;
     /**
      * Stores all booking buttons.
      */
-    List<Button> bookingButtons = new ArrayList<>();
-    Button currentBookingButton;
+    List<Button> timeButtons = new ArrayList<>();
+    List<String> timestr = new ArrayList<>();
+    List<Integer> numVacant = new ArrayList<>();
+    Button currentTimeButton;
+
     private ActivityBookingBinding binding;
     private RecCenter currentRecCenter = RecCenter.LYON_CENTER;
 
@@ -109,50 +111,54 @@ public class BookingActivity extends AppCompatActivity {
 
         binding.date.setText(getDateString());
 
-        bookingButtons.add(binding.time1);
-        bookingButtons.add(binding.time2);
-        bookingButtons.add(binding.time3);
-        bookingButtons.add(binding.time4);
-        bookingButtons.add(binding.time5);
-        bookingButtons.add(binding.time6);
-        bookingButtons.add(binding.time7);
-        bookingButtons.add(binding.time8);
-        bookingButtons.add(binding.time9);
-        bookingButtons.add(binding.time10);
-        bookingButtons.add(binding.time11);
-        bookingButtons.add(binding.time12);
-        bookingButtons.add(binding.time13);
-        bookingButtons.add(binding.time14);
-        bookingButtons.add(binding.time15);
-        bookingButtons.add(binding.time16);
+        timeButtons.add(binding.time1);
+        timeButtons.add(binding.time2);
+        timeButtons.add(binding.time3);
+        timeButtons.add(binding.time4);
+        timeButtons.add(binding.time5);
+        timeButtons.add(binding.time6);
+        timeButtons.add(binding.time7);
+        timeButtons.add(binding.time8);
+        timeButtons.add(binding.time9);
+        timeButtons.add(binding.time10);
+        timeButtons.add(binding.time11);
+        timeButtons.add(binding.time12);
+        timeButtons.add(binding.time13);
+        timeButtons.add(binding.time14);
+        timeButtons.add(binding.time15);
+        timeButtons.add(binding.time16);
 
         onRefreshDate();
 
         /**
          * bookingButtons onClick
          */
-        for (Button bookingButton : bookingButtons) {
-            bookingButton.setOnClickListener(el -> {
-                if (currentBookingButton != null) {
-                    if (currentBookingButton != bookingButton) {
-                        currentBookingButton.setBackgroundColor(Color.parseColor("#991B1E"));
+        for (int buttonIdx = 0; buttonIdx < timeButtons.size(); buttonIdx++) {
+            Button button = timeButtons.get(buttonIdx);
+            final int fButtonIdx = buttonIdx;
+            button.setOnClickListener(el -> {
+                // Unselect
+                if (currentTimeButton != null) {
+                    if (currentTimeButton != button) {
+                        currentTimeButton.setBackgroundColor(Color.parseColor("#991B1E"));
+                        binding.book.setText("Book");
                     }
                 }
-                currentBookingButton = bookingButton;
-                currentBookingButton.getDrawingCacheBackgroundColor();
-                currentBookingButton.setBackgroundColor(Color.RED);
+
+                // Select color
+                currentTimeButton = button;
+                currentTimeButton.getDrawingCacheBackgroundColor();
+                currentTimeButton.setBackgroundColor(Color.RED);
 
                 // Change book text
-                String text = (String) currentBookingButton.getText();
-                String substring = text.substring(7);
-                if (substring.equals("Left: 0")) {
+                if (numVacant.get(fButtonIdx) == 0) {
                     binding.book.setText("Remind me");
                 }
             });
         }
 
         binding.book.setOnClickListener(el -> {
-            if (currentBookingButton == null) {
+            if (currentTimeButton == null) {
                 return;
             }
 
@@ -166,7 +172,7 @@ public class BookingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 String vacancyFmt = "http://10.0.2.2:8080/api/booking/book?userid=%d&center=%s&datetime=%s";
-                String text = (String) currentBookingButton.getText();
+                String text = (String) currentTimeButton.getText();
                 substring = getDateString() + " " + text.substring(0, 5);
                 @SuppressLint("DefaultLocale") URL vacancyURL =
                         new URL(String.format(vacancyFmt, id, String.valueOf(currentRecCenter.value), substring));
@@ -193,10 +199,12 @@ public class BookingActivity extends AppCompatActivity {
                         .setMessage("You have successfully made your booking at " + centerName + " with a starting time of " + substring + " .")
                         .setNegativeButton("Close", (dialog12, which12) -> {
                         }).show();
-                currentBookingButton.setBackgroundColor(Color.parseColor("#991B1E"));
-                currentBookingButton = null;
+                currentTimeButton.setBackgroundColor(Color.parseColor("#991B1E"));
+                currentTimeButton = null;
             }
             binding.book.setText("Book");
+
+            onRefreshDate();
         });
 
         /**
@@ -268,17 +276,24 @@ public class BookingActivity extends AppCompatActivity {
 
         // Update button text
         int csvIdx = 0;
+        timestr = new ArrayList<>();
+        numVacant = new ArrayList<>();
+        while(csvIdx < csv.length) {
+            timestr.add(csv[csvIdx++]);
+            numVacant.add(Integer.parseInt(csv[csvIdx++]));
+        }
+
         String buttonTextFmt = "%s\n\nLeft:\n%s";
-        for (Button button : bookingButtons) {
-            if (csvIdx < csv.length) {
+        for (int buttonIdx = 0; buttonIdx < timeButtons.size(); buttonIdx++) {
+            Button button = timeButtons.get(buttonIdx);
+            if (buttonIdx < numVacant.size()) {
                 button.setText(
-                        String.format(buttonTextFmt, csv[csvIdx], csv[csvIdx + 1])
+                        String.format(buttonTextFmt, timestr.get(buttonIdx), numVacant.get(buttonIdx))
                 );
                 button.setVisibility(View.VISIBLE);
             } else {
                 button.setVisibility(View.INVISIBLE);
             }
-            csvIdx += 2;
         }
     }
 
