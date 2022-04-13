@@ -27,5 +27,5 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="or_make_a_booking_on_the_map">Or select a center on the map</string>
     <string name="selected">None Selected</string>
-    <string name="view_upcoming_bookings">View Upcoming Bookings</string>
+    <string name="view_upcoming_bookings">View Booking Summary</string>
 </resources>

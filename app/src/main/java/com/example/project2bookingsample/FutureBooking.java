@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,11 +29,10 @@ public class FutureBooking extends AppCompatActivity {
         listView = findViewById(R.id.futureBookingList);
         //拿数据
         String message;
-
-        Long userId = (long) 0;
+        long userId = (long) 0;
         try {
-            userId = (long) Integer.parseInt(getIntent().getStringExtra("userid"));
-        }catch (Exception e){
+            userId = (long) Integer.parseInt(FakeSingleton.getUserid());
+        } catch (Exception e) {
             e.printStackTrace();
         }
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -141,20 +139,21 @@ public class FutureBooking extends AppCompatActivity {
 
         previousBooking = findViewById(R.id.previousBooking);
         back = findViewById(R.id.back);
+        long finalUserId2 = userId;
         previousBooking.setOnClickListener(v -> {
             Intent intent = new Intent(FutureBooking.this, com.example.project2bookingsample.PreviousBooking.class);
             startActivity(intent);
+            intent.putExtra("userid", String.valueOf(finalUserId2));
             finish();
         });
 
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FutureBooking.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        Long finalUserId1 = userId;
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent(FutureBooking.this, HomeActivity.class);
+            startActivity(intent);
+            intent.putExtra("userid", String.valueOf(finalUserId1));
+            finish();
         });
     }
 }

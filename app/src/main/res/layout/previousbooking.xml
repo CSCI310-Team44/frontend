@@ -28,10 +28,10 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:background="#F8DF06"
+        android:background="#FFFFFF"
         android:text="Welcome, Below are your previous booking information"
         android:textAlignment="center"
-        android:textColor="#ED1E03"
+        android:textColor="#991B1E"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -55,6 +55,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="60dp"
-        android:background="#EBFB04" />
+        android:background="#F0F0F0" />
 
 </RelativeLayout>

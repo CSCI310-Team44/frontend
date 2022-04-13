@@ -34,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time2"
@@ -42,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time3"
@@ -50,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time4"
@@ -58,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
         </LinearLayout>
 
@@ -75,7 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time6"
@@ -83,7 +88,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time7"
@@ -91,7 +97,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time8"
@@ -99,7 +106,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
         </LinearLayout>
 
@@ -116,7 +124,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time10"
@@ -124,7 +133,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time11"
@@ -132,7 +142,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time12"
@@ -140,7 +151,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
         </LinearLayout>
 
@@ -157,7 +169,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time14"
@@ -165,7 +178,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time15"
@@ -173,7 +187,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
             <Button
                 android:id="@+id/time16"
@@ -181,7 +196,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:text="@string/default_timeslot_text" />
+                android:text="@string/default_timeslot_text"
+                android:backgroundTint="#991B1E"/>
 
         </LinearLayout>
 
@@ -218,6 +234,15 @@
                 android:layout_marginRight="2dp"
                 android:layout_weight="1"
                 android:text="TMR" />
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </LinearLayout>
     </LinearLayout>
 

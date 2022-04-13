@@ -19,8 +19,25 @@ public class Notifier {
      */
     private int state;
 
+    /**
+     * Creates a new {@code Notifier} that polls availability.
+     * Wrapper for {@link SSEPlainTextConsumer}.
+     * To prevent busy polling, either the {@code Notifier} must sleep,
+     * or the {@code NotifierListener} must sleep.
+     *
+     * @param userId
+     * @param nl        action to take after receiving data
+     * @param sleeptime time to sleep after each poll
+     */
+    public Notifier(long userId, int sleeptime, NotifierListener nl) {
+        this.userId = userId;
+        this.sleeptime = sleeptime;
+        this.nl = nl;
+        this.state = 0;
+    }
+
     public void start() {
-        if(state != 0) {
+        if (state != 0) {
             throw new RuntimeException("Error state: " + state);
         }
 
@@ -36,43 +53,24 @@ public class Notifier {
                     try {
                         nl.listen(sse.getContent());
                         Thread.sleep(sleeptime);
-                    }
-                    catch (IOException | InterruptedException ioe) {
+                    } catch (IOException | InterruptedException ioe) {
                         ioe.printStackTrace();
                     }
                 }
             });
             t.start();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
             throw new RuntimeException("Failed to create notifier.");
         }
     }
 
     public void stop() {
-        if(state != 1) {
+        if (state != 1) {
             throw new RuntimeException("Error state: " + state);
         }
 
         t.interrupt();
         sse.disconnect();
-    }
-
-    /**
-     * Creates a new {@code Notifier} that polls availability.
-     * Wrapper for {@link SSEPlainTextConsumer}.
-     * To prevent busy polling, either the {@code Notifier} must sleep,
-     * or the {@code NotifierListener} must sleep.
-     *
-     * @param userId
-     * @param nl action to take after receiving data
-     * @param sleeptime time to sleep after each poll
-     */
-    public Notifier(long userId, int sleeptime, NotifierListener nl) {
-        this.userId = userId;
-        this.sleeptime = sleeptime;
-        this.nl = nl;
-        this.state = 0;
     }
 }

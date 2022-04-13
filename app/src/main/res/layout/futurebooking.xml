@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/welcome"
         android:layout_width="match_parent"
-        android:layout_height="107dp"
+        android:layout_height="81dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -28,10 +28,10 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:background="#F8DF06"
-        android:text="Welcome, Below are your future booking information"
+        android:background="#ffffff"
+        android:text="Your upcoming bookings"
         android:textAlignment="center"
-        android:textColor="#ED1E03"
+        android:textColor="#991B1E"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -50,14 +50,17 @@
         android:id="@+id/textView2"
         android:layout_width="235dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="87dp"
         android:text="Click on the following bookings to cancel them"
         android:textAlignment="center"
+        android:textColor="#991B1E"
         android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="#ED1E03"/>
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/futureBookingList"
@@ -67,6 +70,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="104dp"
-        android:background="#EBFB04"/>
+        android:textColor="#991B1E"
+        android:background="#f0f0f0" />
 
 </RelativeLayout>
