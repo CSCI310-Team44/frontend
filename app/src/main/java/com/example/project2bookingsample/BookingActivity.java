@@ -130,7 +130,7 @@ public class BookingActivity extends AppCompatActivity {
             bookingButton.setOnClickListener(el -> {
                 if (currentBookingButton != null) {
                     if (currentBookingButton != bookingButton) {
-                        currentBookingButton.setBackgroundColor(Color.parseColor("#800080"));
+                        currentBookingButton.setBackgroundColor(Color.parseColor("#991B1E"));
                     }
                 }
                 currentBookingButton = bookingButton;
@@ -188,7 +188,7 @@ public class BookingActivity extends AppCompatActivity {
                         .setMessage("You have successfully made your booking at " + centerName + " with a starting time of " + substring + " .")
                         .setNegativeButton("Close", (dialog12, which12) -> {
                         }).show();
-                currentBookingButton.setBackgroundColor(Color.parseColor("#800080"));
+                currentBookingButton.setBackgroundColor(Color.parseColor("#991B1E"));
                 currentBookingButton = null;
             }
             binding.book.setText("Book");
