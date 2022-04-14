@@ -162,16 +162,10 @@ public class BookingChangeDateTest {
         button2.check(matches(isDisplayed()));
 
         ViewInteraction button3 = onView(
-                allOf(withId(R.id.time6), withText("11:00\n\nLEFT:\n50"),
+                allOf(withId(R.id.time7), withText("12:00\n\nLEFT:\n50"),
                         withParent(withParent(withId(R.id.main_linear))),
                         isDisplayed()));
         button3.check(matches(isDisplayed()));
-
-        ViewInteraction button4 = onView(
-                allOf(withId(R.id.time6), withText("11:00\n\nLEFT:\n50"),
-                        withParent(withParent(withId(R.id.main_linear))),
-                        isDisplayed()));
-        button4.check(matches(isDisplayed()));
 
         ViewInteraction materialButton5 = onView(
                 allOf(withId(R.id.tmr), withText("TMR"),
@@ -184,7 +178,7 @@ public class BookingChangeDateTest {
         materialButton5.perform(click());
 
         ViewInteraction button5 = onView(
-                allOf(withId(R.id.time3), withText("08:00\n\nLEFT:\n50"),
+                allOf(withId(R.id.time8), withText("13:00\n\nLEFT:\n50"),
                         withParent(withParent(withId(R.id.main_linear))),
                         isDisplayed()));
         button5.check(matches(isDisplayed()));
