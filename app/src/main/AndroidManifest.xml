@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.frontend">
+    package="com.example.project2bookingsample">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -29,15 +29,15 @@
             android:value="AIzaSyCmNZaKpe8cFTkoVwmgW005s3GZjkMNPbw" />
 
         <activity
-            android:name="com.example.frontend.ui.profile.ProfileActivity"
+            android:name="com.example.project2bookingsample.ui.profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.frontend.ui.home.HomeActivity"
+            android:name="com.example.project2bookingsample.ui.home.HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.Project2bookingsample.NoActionBar" />
         <activity
-            android:name="com.example.frontend.ui.login.LoginActivity"
+            android:name="com.example.project2bookingsample.ui.login.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login">
             <intent-filter>
@@ -47,14 +47,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.frontend.ui.summary.FutureBooking"
+            android:name="com.example.project2bookingsample.ui.summary.FutureBooking"
             android:exported="true">
         </activity>
         <activity
-            android:name="com.example.frontend.ui.summary.PreviousBooking"
+            android:name="com.example.project2bookingsample.ui.summary.PreviousBooking"
             android:exported="false" />
         <activity
-            android:name="com.example.frontend.ui.booking.BookingActivity"
+            android:name="com.example.project2bookingsample.ui.booking.BookingActivity"
             android:exported="false" />
     </application>
 
