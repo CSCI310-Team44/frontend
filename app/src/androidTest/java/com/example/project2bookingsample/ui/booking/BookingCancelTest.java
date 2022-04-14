@@ -1,4 +1,4 @@
-package com.example.project2bookingsample.ui.summary;
+package com.example.project2bookingsample.ui.booking;
 
 
 import static androidx.test.espresso.Espresso.onData;
@@ -39,19 +39,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class UpcomingBookingTest {
+public class BookingCancelTest {
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void upcomingBookingTest() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    public void bookingCancelTest() {
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.username),
                         childAtPosition(
@@ -118,12 +114,12 @@ public class UpcomingBookingTest {
         materialButton.perform(click());
 
         ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.time15), withText("20:00\n\nLeft:\n50"),
+                allOf(withId(R.id.time12), withText("17:00\n\nLeft:\n50"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.main_linear),
-                                        4),
-                                2),
+                                        3),
+                                3),
                         isDisplayed()));
         materialButton2.perform(click());
 
@@ -167,16 +163,6 @@ public class UpcomingBookingTest {
                         isDisplayed()));
         button2.perform(click());
 
-        String text;
-        text = "Name of the recreation center: Lyon Center\nYour booking starts from: "+df.format(new Date(System.currentTimeMillis()+24*60*60*1000))+" 20:00\nYou have already booked this slot.";
-
-        ViewInteraction textView = onView(
-                allOf(withId(android.R.id.text1), withText(text),
-                        withParent(allOf(withId(R.id.futureBookingList),
-                                withParent(IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class)))),
-                        isDisplayed()));
-        textView.check(matches(isDisplayed()));
-
         DataInteraction materialTextView = onData(anything())
                 .inAdapterView(allOf(withId(R.id.futureBookingList),
                         childAtPosition(
@@ -185,23 +171,66 @@ public class UpcomingBookingTest {
                 .atPosition(0);
         materialTextView.perform(click());
 
-        ViewInteraction materialButton6 = onView(
+        ViewInteraction materialButton7 = onView(
                 allOf(withId(android.R.id.button1), withText("Yes"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.ScrollView")),
                                         0),
                                 3)));
-        materialButton6.perform(scrollTo(), click());
+        materialButton7.perform(scrollTo(), click());
 
-        ViewInteraction materialButton7 = onView(
+        ViewInteraction materialButton8 = onView(
                 allOf(withId(android.R.id.button2), withText("Close"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.ScrollView")),
                                         0),
                                 2)));
-        materialButton7.perform(scrollTo(), click());
+        materialButton8.perform(scrollTo(), click());
+
+        ViewInteraction listView = onView(
+                allOf(withId(R.id.futureBookingList),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        listView.check(matches(isDisplayed()));
+
+        ViewInteraction materialButton9 = onView(
+                allOf(withId(R.id.back), withText("Back to Booking page"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                0),
+                        isDisplayed()));
+        materialButton9.perform(click());
+
+        ViewInteraction button4 = onView(
+                allOf(withId(R.id.makeBookingButton), withText("Book"),
+                        childAtPosition(
+                                allOf(withId(R.id.constraintLayout),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                4),
+                        isDisplayed()));
+        button4.perform(click());
+
+        ViewInteraction materialButton10 = onView(
+                allOf(withId(R.id.tmr), withText("TMR"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.main_linear),
+                                        5),
+                                2),
+                        isDisplayed()));
+        materialButton10.perform(click());
+
+        ViewInteraction button5 = onView(
+                allOf(withId(R.id.time12), withText("17:00\n\nLEFT:\n50"),
+                        withParent(withParent(withId(R.id.main_linear))),
+                        isDisplayed()));
+        button5.check(matches(isDisplayed()));
     }
 
     private static Matcher<View> childAtPosition(
