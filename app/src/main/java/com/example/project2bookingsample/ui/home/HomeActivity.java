@@ -111,7 +111,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         //TODO: HomeActivity or MapsFragment
-        googleMap.addMarker(new MarkerOptions().position(HomeActivity.RecCenter.LYON_CENTER.latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("UCS Lyon Center").snippet("Hours: M-F 10AM - 4PM"));
+        googleMap.addMarker(new MarkerOptions().position(HomeActivity.RecCenter.LYON_CENTER.latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("USC Lyon Center").snippet("Hours: M-F 10AM - 4PM"));
         googleMap.addMarker(new MarkerOptions().position(HomeActivity.RecCenter.VILLAGE_CENTER.latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("Village Fitness Center").snippet("Hours: M-F 10AM - 4PM"));
         googleMap.addMarker(new MarkerOptions().position(HomeActivity.RecCenter.HSC_CENTER.latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("HSC Center").snippet("Hours: M-F 10AM - 4PM"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HomeActivity.RecCenter.LYON_CENTER.latLng, 10));
@@ -125,7 +125,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                     marker.showInfoWindow();
                 }
                 mSelectedCenter.setText(marker.getTitle());
-                if (marker.getTitle().equals("UCS Lyon Center")) {
+                if (marker.getTitle().equals("USC Lyon Center")) {
                     mCenterID = 0;
                 } else if (marker.getTitle().equals("Village Fitness Center")) {
                     mCenterID = 1;
