@@ -1,4 +1,4 @@
-package com.example.project2bookingsample.ui.googleMap;
+package com.example.project2bookingsample.ui.googlemap;
 
 
 import static androidx.test.espresso.Espresso.onView;
