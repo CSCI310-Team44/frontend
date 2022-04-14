@@ -105,11 +105,11 @@ public class HomeUITest {
         button3.check(matches(isDisplayed()));
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.selectedCenter), withText("None Selected"),
+                allOf(withId(R.id.selectedCenter), withText("USC Lyon Center"),
                         withParent(allOf(withId(R.id.constraintLayout),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));
-        textView.check(matches(withText("None Selected")));
+        textView.check(matches(withText("USC Lyon Center")));
 
         ViewInteraction textView2 = onView(
                 allOf(withId(R.id.textView), withText("Welcome"),
