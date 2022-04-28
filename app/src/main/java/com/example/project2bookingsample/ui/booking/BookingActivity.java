@@ -213,6 +213,15 @@ public class BookingActivity extends AppCompatActivity {
                 currentTimeButton.setBackgroundColor(Color.parseColor("#991B1E"));
                 currentTimeButton = null;
             }
+            else if(message.equals("fail1")){
+                new AlertDialog.Builder(BookingActivity.this)
+                        .setTitle("Booking Failed!")
+                        .setMessage("You are not allowed to book a past time slot.")
+                        .setNegativeButton("Close", (dialog12, which12) -> {
+                        }).show();
+                currentTimeButton.setBackgroundColor(Color.parseColor("#991B1E"));
+                currentTimeButton = null;
+            }
             binding.book.setText("Book");
             onRefreshDate();
         });

@@ -148,12 +148,6 @@ public class BookingDefaultCenterTest {
                         isDisplayed()));
         button5.check(matches(isDisplayed()));
 
-        ViewInteraction button6 = onView(
-                allOf(withId(R.id.back), withText("BACK"),
-                        withParent(withParent(withId(R.id.main_linear))),
-                        isDisplayed()));
-        button6.check(matches(isDisplayed()));
-
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.book), withText("Book"),
                         childAtPosition(
@@ -163,16 +157,6 @@ public class BookingDefaultCenterTest {
                                 1),
                         isDisplayed()));
         materialButton.perform(click());
-
-        ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.book), withText("Book"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.main_linear),
-                                        5),
-                                1),
-                        isDisplayed()));
-        materialButton2.perform(click());
     }
 
     private static Matcher<View> childAtPosition(
