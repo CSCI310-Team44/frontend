@@ -180,6 +180,7 @@ public class BookingActivity extends AppCompatActivity {
                 httpRequest.setUrl(vacancyURL);
                 httpRequest.setRequestMethod("GET");
                 httpRequest.sendAndAwaitResponse();
+                System.out.println();
                 message = httpRequest.getResponseContent();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -193,7 +194,7 @@ public class BookingActivity extends AppCompatActivity {
             } else {
                 centerName = "HSC Center";
             }
-            if (message.equals("Success")) {
+            if (message.equals("success")) {
                 new AlertDialog.Builder(BookingActivity.this)
                         .setTitle("Booking Successful!")
                         .setMessage("You have successfully made your booking at " + centerName + " with a starting time of " + substring + " .")
@@ -202,8 +203,16 @@ public class BookingActivity extends AppCompatActivity {
                 currentTimeButton.setBackgroundColor(Color.parseColor("#991B1E"));
                 currentTimeButton = null;
             }
+            else if(message.equals("fail")){
+                new AlertDialog.Builder(BookingActivity.this)
+                        .setTitle("Booking Failed!")
+                        .setMessage("You are not allowed to book the same time slot twice.")
+                        .setNegativeButton("Close", (dialog12, which12) -> {
+                        }).show();
+                currentTimeButton.setBackgroundColor(Color.parseColor("#991B1E"));
+                currentTimeButton = null;
+            }
             binding.book.setText("Book");
-
             onRefreshDate();
         });
 

@@ -28,4 +28,6 @@
     <string name="or_make_a_booking_on_the_map">Or select a center on the map</string>
     <string name="selected">USC Lyon Center</string>
     <string name="view_upcoming_bookings">View Booking Summary</string>
+    <string name="log_out">Log Out Current Account</string>
+    <string name="welcome_">Welcome</string>
 </resources>

@@ -3,12 +3,15 @@ package com.example.project2bookingsample.ui.profile;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,10 +22,12 @@ import com.example.project2bookingsample.ui.home.HomeActivity;
 import com.example.project2bookingsample.web.http.HTTPRequestSyncRest;
 import com.example.project2bookingsample.web.sse.notifier.Notifier;
 
+import java.io.InputStream;
 import java.net.URL;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +73,6 @@ public class ProfileActivity extends AppCompatActivity {
             // giving the username as an integer (long) as the API requires
             @SuppressLint("DefaultLocale") URL nameURL =
                     new URL(String.format(nameFmt, Integer.parseInt(FakeSingleton.getUserid())));
-
             HTTPRequestSyncRest httpRequest = new HTTPRequestSyncRest();
             httpRequest.setUrl(nameURL);
             Log.d("DEBUGDISPLAY", nameURL.toString());
@@ -87,6 +91,19 @@ public class ProfileActivity extends AppCompatActivity {
 
         TextView fullNameTextView = (TextView) findViewById(R.id.fullName);
         fullNameTextView.setText("Name: " + userFullName);
+
+
+        ImageView img = (ImageView) findViewById(R.id.imageView);
+        try {
+            URL url = new URL("http://10.0.2.2:8080/api/user/profilepic?userid="+ FakeSingleton.getUserid());
+            InputStream inputStream = url.openConnection().getInputStream();
+            System.out.println("input");
+            Bitmap bmp = BitmapFactory.decodeStream(inputStream);
+            System.out.println(bmp);
+            img.setImageBitmap(bmp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         TextView netIDView = (TextView) findViewById(R.id.netID);
         netIDView.setText("NetID: " + userId);

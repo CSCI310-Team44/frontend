@@ -7,12 +7,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.project2bookingsample.FakeSingleton;
+import com.example.project2bookingsample.ui.login.LoginActivity;
 import com.example.project2bookingsample.ui.profile.ProfileActivity;
 import com.example.project2bookingsample.R;
 import com.example.project2bookingsample.databinding.ActivityHomeBinding;
@@ -43,6 +45,14 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = new Intent(this, FutureBooking.class);
         // pass along the userid
         intent.putExtra("userid", getIntent().getStringExtra("userid"));
+        startActivity(intent);
+    }
+
+    public void OnClickLogOut(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        //reset saved info
+        Toast.makeText(getApplicationContext(), "Log out successfully!", Toast.LENGTH_SHORT).show();
+        FakeSingleton.setUserid("");
         startActivity(intent);
     }
 
