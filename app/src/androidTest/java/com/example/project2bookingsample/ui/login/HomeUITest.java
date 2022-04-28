@@ -84,10 +84,7 @@ public class HomeUITest {
         appCompatEditText4.perform(pressImeActionButton());
 
         ViewInteraction button = onView(
-                allOf(withId(R.id.makeBookingButton), withText("BOOK"),
-                        withParent(allOf(withId(R.id.constraintLayout),
-                                withParent(withId(android.R.id.content)))),
-                        isDisplayed()));
+                allOf(withId(R.id.makeBookingButton), withText("Book"), isDisplayed()));
         button.check(matches(isDisplayed()));
 
         ViewInteraction button2 = onView(

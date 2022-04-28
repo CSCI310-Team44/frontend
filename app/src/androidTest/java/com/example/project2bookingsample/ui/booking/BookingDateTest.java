@@ -81,12 +81,6 @@ public class BookingDateTest {
 
         ViewInteraction button = onView(
                 allOf(withId(R.id.makeBookingButton), withText("Book"),
-                        childAtPosition(
-                                allOf(withId(R.id.constraintLayout),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                4),
                         isDisplayed()));
         button.perform(click());
 

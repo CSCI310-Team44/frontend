@@ -94,12 +94,6 @@ public class BookingCancelTest {
 
         ViewInteraction button = onView(
                 allOf(withId(R.id.makeBookingButton), withText("Book"),
-                        childAtPosition(
-                                allOf(withId(R.id.constraintLayout),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                4),
                         isDisplayed()));
         button.perform(click());
 
@@ -206,14 +200,7 @@ public class BookingCancelTest {
         materialButton9.perform(click());
 
         ViewInteraction button4 = onView(
-                allOf(withId(R.id.makeBookingButton), withText("Book"),
-                        childAtPosition(
-                                allOf(withId(R.id.constraintLayout),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                4),
-                        isDisplayed()));
+                allOf(withId(R.id.makeBookingButton), withText("Book"), isDisplayed()));
         button4.perform(click());
 
         ViewInteraction materialButton10 = onView(

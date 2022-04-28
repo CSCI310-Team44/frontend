@@ -83,12 +83,6 @@ public class BookingUpdateVacancyTest {
 
         ViewInteraction button = onView(
                 allOf(withId(R.id.makeBookingButton), withText("Book"),
-                        childAtPosition(
-                                allOf(withId(R.id.constraintLayout),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                4),
                         isDisplayed()));
         button.perform(click());
 
@@ -149,14 +143,7 @@ public class BookingUpdateVacancyTest {
         materialButton5.perform(click());
 
         ViewInteraction button2 = onView(
-                allOf(withId(R.id.makeBookingButton), withText("Book"),
-                        childAtPosition(
-                                allOf(withId(R.id.constraintLayout),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                4),
-                        isDisplayed()));
+                allOf(withId(R.id.makeBookingButton), withText("Book"), isDisplayed()));
         button2.perform(click());
 
         ViewInteraction materialButton6 = onView(
